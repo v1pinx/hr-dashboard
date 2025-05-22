@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 
-export default function useSearch(employees) {
+export default function useSearch(employees: any) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
     department: "",
@@ -9,7 +9,7 @@ export default function useSearch(employees) {
   const filteredEmployees = useMemo(() => {
     if (!employees) return [];
 
-    return employees.filter((employee) => {
+    return employees.filter((employee: any) => {
       const searchMatch =
         employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         employee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||

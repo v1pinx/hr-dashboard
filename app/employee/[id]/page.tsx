@@ -21,7 +21,7 @@ export default function EmployeeDetails() {
   const { employee, loading, error } = useEmployeeById(id);
   const { bookmarks, toggleBookmark } = useBookmarks();
   const [activeTab, setActiveTab] = useState("overview");
-  const [performanceHistory, setPerformanceHistory] = useState([]);
+  const [performanceHistory, setPerformanceHistory] = useState<any>([]);
 
   const isBookmarked = bookmarks.includes(employee?.id);
 
@@ -40,12 +40,13 @@ export default function EmployeeDetails() {
   }
 
   if (error) {
+    const err = error as Error;
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <h2 className="text-2xl font-bold text-red-500">
           Error loading employee details
         </h2>
-        <p className="text-gray-600 dark:text-gray-400">{error.message}</p>
+        <p className="text-gray-400">{err.message}</p>
       </div>
     );
   }
@@ -56,7 +57,7 @@ export default function EmployeeDetails() {
         <div className="flex items-center gap-4">
           <Link
             href="/"
-            className="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-600 hover:bg-gray-800 transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
             <span className="sr-only">Back to Dashboard</span>
@@ -66,7 +67,7 @@ export default function EmployeeDetails() {
           </h1>
         </div>
         <button
-          onClick={() => toggleBookmark(employee.id)}
+          onClick={() => toggleBookmark(employee?.id)}
           className={`inline-flex items-center border border-zinc-800 cursor-pointer px-4 py-2 rounded-lg ${
             isBookmarked ? "bg-zinc-800 " : ""
           }`}

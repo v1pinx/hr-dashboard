@@ -1,7 +1,13 @@
 import { generateSkills, getPerformanceColor } from "@/app/lib/utils";
 import Badge from "@/app/ui/Badge";
 
-export default function OverviewTab({ employee, performanceHistory }) {
+export default function OverviewTab({
+  employee,
+  performanceHistory,
+}: {
+  employee: any;
+  performanceHistory: any[];
+}) {
   const bio = `${employee.firstName} ${employee.lastName} is a ${employee.age}-year-old professional working as a ${employee.company.title} in the ${employee.company.department} department at ${employee.company.name}. With a strong background from ${employee.university}, ${employee.firstName} brings valuable experience to the team. Based in ${employee.address.city}, ${employee.address.state}, ${employee.firstName} is known for dedication, professionalism, and a commitment to excellence.`;
 
   return (

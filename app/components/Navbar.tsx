@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Bookmark, LayoutDashboard, Menu, Moon, PieChart, Sun, X } from "lucide-react"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Bookmark, LayoutDashboard, Menu, PieChart, X } from "lucide-react";
 
 const routes = [
   {
@@ -21,33 +21,30 @@ const routes = [
     path: "/analytics",
     icon: PieChart,
   },
-]
+];
 
 function clsx(...classes: (string | boolean | undefined | null)[]) {
-  return classes.filter(Boolean).join(" ")
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Navbar() {
-  const pathname = usePathname()
-//   const { theme, setTheme } = useTheme()
-  const [isMounted, setIsMounted] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname();
+  const [isMounted, setIsMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-//   const toggleTheme = () => {
-//     setTheme(theme === "dark" ? "light" : "dark")
-//   }
+    setIsMounted(true);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-700 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-zinc-800 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-14 items-center px-4 max-w-7xl">
         {/* Left Section */}
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block">HR Dashboard</span>
+            <span className="hidden font-bold sm:inline-block">
+              HR Dashboard
+            </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {routes.map((route) => (
@@ -56,7 +53,9 @@ export default function Navbar() {
                 href={route.path}
                 className={clsx(
                   "transition-colors hover:text-foreground/80",
-                  pathname === route.path ? "text-foreground" : "text-foreground/60"
+                  pathname === route.path
+                    ? "text-foreground"
+                    : "text-foreground/60"
                 )}
               >
                 {route.name}
@@ -76,14 +75,20 @@ export default function Navbar() {
 
         {/* Mobile Drawer */}
         {menuOpen && (
-          <div className="fixed inset-0 z-50 bg-black/50 md:hidden" onClick={() => setMenuOpen(false)}>
+          <div
+            className="fixed inset-0 z-50 bg-black/50 md:hidden"
+            onClick={() => setMenuOpen(false)}
+          >
             <div
-              className="bg-white dark:bg-gray-900 w-64 h-full p-4"
+              className="bg-zinc-900 w-64 h-full p-4"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-4">
                 <span className="font-bold">HR Dashboard</span>
-                <button onClick={() => setMenuOpen(false)} aria-label="Close Menu">
+                <button
+                  onClick={() => setMenuOpen(false)}
+                  aria-label="Close Menu"
+                >
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -112,24 +117,15 @@ export default function Navbar() {
         {/* Right Section */}
         <div className="flex flex-1 items-center justify-between md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
-            <Link href="/" className="mr-6 flex items-center space-x-2 md:hidden">
+            <Link
+              href="/"
+              className="mr-6 flex items-center space-x-2 md:hidden"
+            >
               <span className="font-bold inline-block">HR Dashboard</span>
             </Link>
           </div>
-          {/* <button
-            onClick={toggleTheme}
-            disabled={!isMounted}
-            className="border rounded p-2"
-            aria-label="Toggle Theme"
-          >
-            {isMounted && theme === "dark" ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </button> */}
         </div>
       </div>
     </header>
-  )
+  );
 }

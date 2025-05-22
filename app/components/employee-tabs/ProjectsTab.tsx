@@ -14,7 +14,7 @@ import {
   Search,
 } from "lucide-react";
 
-export default function ProjectTab({ employeeId }) {
+export default function ProjectTab({ employeeId }: { employeeId: any }) {
   const [selectedProject, setSelectedProject] = useState(null);
   const [filterStatus, setFilterStatus] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,7 +27,7 @@ export default function ProjectTab({ employeeId }) {
     status: "not-started",
   });
 
-  const handleCreateProject = (e) => {
+  const handleCreateProject = (e: any) => {
     e.preventDefault();
     if (!newProject.name.trim() || !newProject.description.trim()) {
       alert("Please fill in all required fields");
@@ -56,7 +56,7 @@ export default function ProjectTab({ employeeId }) {
     return matchesStatus && matchesSearch;
   });
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: any) => {
     switch (status) {
       case "completed":
         return <CheckCircle className="w-4 h-4 text-green-500" />;
@@ -69,7 +69,7 @@ export default function ProjectTab({ employeeId }) {
     }
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: any) => {
     switch (status) {
       case "completed":
         return "bg-green-100 text-green-800 border-green-200";
@@ -82,7 +82,7 @@ export default function ProjectTab({ employeeId }) {
     }
   };
 
-  const getPriorityColor = (priority) => {
+  const getPriorityColor = (priority: any) => {
     switch (priority) {
       case "high":
         return "bg-red-100 text-red-800 border-red-200";

@@ -59,9 +59,7 @@ export function generatePerformanceHistory(employeeId: number) {
   return history;
 }
 
-
-
-export function generateSkills(department) {
+export function generateSkills(department: any) {
   const commonSkills = [
     "Communication",
     "Teamwork",
@@ -69,7 +67,7 @@ export function generateSkills(department) {
     "Time Management",
   ];
 
-  const departmentSkills = {
+  const departmentSkills: any = {
     Engineering: [
       "JavaScript",
       "React",
@@ -128,8 +126,8 @@ export function generateSkills(department) {
   };
 
   const skills = [...commonSkills];
-    if (departmentSkills[department]) {
-        skills.push(...departmentSkills[department]);
-    }
+  if (departmentSkills[department]) {
+    skills.push(...departmentSkills[department]);
+  }
   return skills;
 }

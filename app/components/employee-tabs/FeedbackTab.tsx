@@ -9,14 +9,14 @@ import {
   Briefcase,
 } from "lucide-react";
 
-export default function FeedbackTab({ employeeId }) {
+export default function FeedbackTab({ employeeId }: { employeeId: any }) {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [feedbackType, setFeedbackType] = useState("performance");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     if (rating === 0) {

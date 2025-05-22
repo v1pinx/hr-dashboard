@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 export function useEmployees() {
-  const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState<any>([]);
   const [skip, setSkip] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -18,18 +18,17 @@ export function useEmployees() {
       );
       const data = await response.json();
 
-      const updatedData = data.users.map((user) => ({
+      const updatedData = data.users.map((user: any) => ({
         ...user,
         performanceRating: generatePerformanceRating(),
       }));
-      setEmployees((prev) => [...prev, ...updatedData]);
+      setEmployees((prev: any) => [...prev, ...updatedData]);
       setSkip((prev) => prev + LIMIT);
 
       if (skip + LIMIT >= data.total) {
         setHasMore(false);
       }
     } catch (err) {
-      setError(err);
       console.error("Error fetching employees:", err);
     } finally {
       setLoading(false);
@@ -43,12 +42,8 @@ export function useEmployees() {
   return { employees, loading, error, hasMore, fetchEmployees };
 }
 
-function generatePerformanceRating() {
-  return Math.round((Math.random() * 2.5 + 2.5) * 10) / 10; // Generates between 2.5 and 5.0
-}
-
-export function useEmployeeById(id) {
-  const [employee, setEmployee] = useState(null);
+export function useEmployeeById(id: any) {
+  const [employee, setEmployee] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -70,7 +65,6 @@ export function useEmployeeById(id) {
 
         setEmployee(enhancedEmployee);
       } catch (err) {
-        setError(err);
         console.error("Error fetching employee:", err);
       } finally {
         setLoading(false);
@@ -81,4 +75,8 @@ export function useEmployeeById(id) {
   }, [id]);
 
   return { employee, loading, error };
+}
+
+function generatePerformanceRating() {
+  return Math.round((Math.random() * 2.5 + 2.5) * 10) / 10; // Generates between 2.5 and 5.0
 }

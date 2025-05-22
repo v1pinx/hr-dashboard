@@ -21,7 +21,7 @@ export default function Home() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto mt-4 px-4 space-y-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="text-center lg:text-left">
           <h1 className="text-4xl font-bold  tracking-tight">

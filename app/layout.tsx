@@ -4,6 +4,7 @@ import "./globals.css";
 import { BookmarksProvider } from "@/app/context/BookmarkContext";
 import { Book } from "lucide-react";
 import Navbar from "./components/Navbar";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +18,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "HR Dashboard",
-  description: "Track employee performance, manage bookmarks, and view detailed insights",
+  description:
+    "Track employee performance, manage bookmarks, and view detailed insights",
 };
 
 export default function RootLayout({
@@ -30,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Toaster />
         <Navbar />
         <BookmarksProvider>{children}</BookmarksProvider>
       </body>

@@ -16,6 +16,7 @@ import {
 import { useBookmarks } from "@/app/context/BookmarkContext";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
 
 export default function EmployeeCard({ employee }: { employee: any }) {
   const { bookmarks, toggleBookmark } = useBookmarks();
@@ -37,11 +38,19 @@ export default function EmployeeCard({ employee }: { employee: any }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handlePromote = () => {
+    toast.success("Employee promoted!");
+  }
+
+  const handleAssignToProject = () => {
+    toast.success("Employee assigned to project!");
+  }
+
   return (
     <div className="rounded-lg border shadow-sm hover:shadow-lg transition-shadow duration-300 w-full max-w-xs border-neutral-700">
       {/* Header with department tag */}
       <div className="p-4 border-b border-zinc-800 flex justify-between items-center">
-        <span className="text-xs font-medium px-2 py-1 rounded-full bg-zinc-800 text-zinc-800">
+        <span className="text-xs font-medium px-2 py-1 rounded-full bg-zinc-800">
           {employee.company.department}
         </span>
         <button
@@ -154,11 +163,11 @@ export default function EmployeeCard({ employee }: { employee: any }) {
 
           {dropdownOpen && (
             <div className="absolute right-0 bottom-full mb-2 z-50 min-w-[10rem] overflow-hidden rounded-md border  bg-zinc-900 border-zinc-800 p-1 shadow-lg">
-              <button className="relative flex w-full select-none items-center rounded-sm px-3 py-2 text-sm outline-none hover:bg-zinc-800 transition-colors">
+              <button className="relative flex w-full select-none items-center rounded-sm px-3 py-2 text-sm outline-none hover:bg-zinc-800 transition-colors" onClick={handlePromote}>
                 <ArrowUpRight className="mr-2 h-4 w-4" />
                 <span>Promote</span>
               </button>
-              <button className="relative flex w-full select-none items-center rounded-sm px-3 py-2 text-sm outline-none hover:bg-zinc-800 transition-colors">
+              <button className="relative flex w-full select-none items-center rounded-sm px-3 py-2 text-sm outline-none hover:bg-zinc-800 transition-colors" onClick={handleAssignToProject}>
                 <Users className="mr-2 h-4 w-4" />
                 <span className="truncate">Assign to Project</span>
               </button>

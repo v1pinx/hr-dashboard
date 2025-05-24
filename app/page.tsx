@@ -1,5 +1,4 @@
 "use client";
-
 import { useEmployees } from "./hooks/useEmployees";
 import InfiniteScroll from "react-infinite-scroll-component";
 import EmployeeCard from "./components/EmployeeCard";
@@ -22,7 +21,7 @@ export default function Home() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto mt-4 px-4 space-y-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="text-center lg:text-left">
           <h1 className="text-4xl font-bold tracking-tight">
@@ -37,34 +36,43 @@ export default function Home() {
         </div>
       </div>
 
-      <InfiniteScroll
-        dataLength={employees.length}
-        next={fetchEmployees}
-        hasMore={hasMore}
-        loader={
-          <div className="flex items-center justify-center py-6">
-            <Loader />
-          </div>
-        }
-        endMessage={
-          <p className="text-center text-zinc-400 py-6">
-            No more users to load.
-          </p>
-        }
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredEmployees.map((employee: any) => (
-            <EmployeeCard key={employee.id} employee={employee} />
-          ))}
+      {/* Show initial loading state */}
+      {loading && employees.length === 0 ? (
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <Loader />
         </div>
-
-        {filteredEmployees.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-[60vh]">
-            <h2 className="text-2xl font-bold">No employees found</h2>
-            <p className="text-zinc-400">Try with different search terms.</p>
-          </div>
-        )}
-      </InfiniteScroll>
+      ) : (
+        <InfiniteScroll
+          dataLength={filteredEmployees.length}
+          next={fetchEmployees}
+          hasMore={hasMore && !loading}
+          loader={
+            <div className="flex items-center justify-center py-6">
+              <Loader />
+            </div>
+          }
+          endMessage={
+            <p className="text-center text-zinc-400 py-6">
+              No more users to load.
+            </p>
+          }
+        >
+          {filteredEmployees.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 place-items-center sm:place-items-stretch">
+              {filteredEmployees.map((employee: any) => (
+                <EmployeeCard key={employee.id} employee={employee} />
+              ))}
+            </div>
+          ) : !loading && employees.length > 0 ? (
+            <div className="flex flex-col items-center justify-center min-h-[60vh]">
+              <h2 className="text-2xl font-bold text-center">No employees found</h2>
+              <p className="text-zinc-400 text-center mt-2">
+                Try with different search terms.
+              </p>
+            </div>
+          ) : null}
+        </InfiniteScroll>
+      )}
     </div>
   );
 }

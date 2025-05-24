@@ -7,6 +7,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import toast from "react-hot-toast";
 
 // Define the shape of the context
 interface BookmarksContextType {
@@ -44,11 +45,17 @@ export function BookmarksProvider({ children }: BookmarksProviderProps) {
   }, [bookmarks]);
 
   const toggleBookmark = (employeeId: string) => {
-    setBookmarks((prev) =>
-      prev.includes(employeeId)
-        ? prev.filter((id) => id !== employeeId)
-        : [...prev, employeeId]
-    );
+    setBookmarks((prev) => {
+      const isBookmarked = prev.includes(employeeId);
+
+      if (isBookmarked) {
+        toast.success("Employee removed from bookmarks");
+        return prev.filter((id) => id !== employeeId);
+      } else {
+        toast.success("Employee added to bookmarks");
+        return [...prev, employeeId];
+      }
+    });
   };
 
   return (

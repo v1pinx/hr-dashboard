@@ -29,10 +29,10 @@ ChartJS.register(
 );
 
 const Analytics = () => {
-  const departmentChartRef = useRef(null);
-  const bookmarkTrendsRef = useRef(null);
-  const departmentChart = useRef(null);
-  const bookmarkChart = useRef(null);
+  const departmentChartRef = useRef<HTMLCanvasElement | null>(null);
+  const bookmarkTrendsRef = useRef<HTMLCanvasElement | null>(null);
+  const departmentChart = useRef<ChartJS | null>(null);
+  const bookmarkChart = useRef<ChartJS | null>(null);
 
   // Simple mock data for department performance
   const departmentData = {
@@ -80,7 +80,7 @@ const Analytics = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top",
+        position: "top" as const,
         labels: {
           color: "#e5e7eb",
           font: {
@@ -93,7 +93,7 @@ const Analytics = () => {
         color: "#e5e7eb",
         font: {
           size: 16,
-          weight: "bold",
+          weight: "bold" as const,
         },
       },
     },
